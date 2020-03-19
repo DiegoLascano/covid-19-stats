@@ -23,23 +23,13 @@ class CountryCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.flag,
-                          color: Colors.orange[700],
-                          // color: Theme.of(context).primaryColor,
-                        ),
-                        SizedBox(width: 5.0),
-                        Text(
-                          countryStat.country,
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.orange[700],
-                          ),
-                        ),
-                      ],
+                    Text(
+                      countryStat.country,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                     Icon(
                       Icons.chevron_right,

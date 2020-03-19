@@ -21,8 +21,6 @@ class _CountryPageState extends State<CountryPage> {
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.baseline,
-              // textBaseline: TextBaseline.alphabetic,
               children: <Widget>[
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,6 +60,7 @@ class _CountryPageState extends State<CountryPage> {
                   icon: Icon(
                     Icons.search,
                     size: 30.0,
+                    color: Colors.grey[800],
                   ),
                   onPressed: () {
                     showSearch(

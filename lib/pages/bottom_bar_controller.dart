@@ -43,15 +43,15 @@ class _BottomBarControllerState extends State<BottomBarController> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             title: Container(),
-            icon: Icon(Icons.blur_circular, size: 30.0),
-          ),
-          BottomNavigationBarItem(
-            title: Container(),
             icon: Icon(Icons.poll, size: 30.0),
           ),
           BottomNavigationBarItem(
             title: Container(),
             icon: Icon(Icons.flag, size: 30.0),
+          ),
+          BottomNavigationBarItem(
+            title: Container(),
+            icon: Icon(Icons.info_outline, size: 30.0),
           ),
           // BottomNavigationBarItem(
           //   title: Container(),
