@@ -34,6 +34,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406087751577:android:c7e55ba52c4417ae9a6508",
+        "android_client_info": {
+          "package_name": "com.nextechdevelopment.covid_19_stats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406087751577-ho7l9rc9iolifrugq4qmu266du038qkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMCeBf_EBZDoXB_TeTVndjJCD-jzBx77o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406087751577-ho7l9rc9iolifrugq4qmu266du038qkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

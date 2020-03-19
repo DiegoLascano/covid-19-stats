@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_admob/flutter_native_admob.dart';
+import 'package:flutter_native_admob/native_admob_controller.dart';
+import 'package:flutter_native_admob/native_admob_options.dart';
 
 import 'package:covid_19_stats/providers/stats_provider.dart';
 
@@ -9,6 +12,12 @@ class GlobalPage extends StatefulWidget {
 
 class _GlobalPageState extends State<GlobalPage> {
   final statsProvider = new StatsProvider();
+  final _controller = NativeAdmobController();
+  // Test ID
+  // static const _adUnitID = "ca-app-pub-3940256099942544/8135179316";
+  // Native 2 Id
+  static const _adUnitID = "ca-app-pub-1500612778036594/5687730085";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -61,13 +70,15 @@ class _GlobalPageState extends State<GlobalPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           final globalStats = snapshot.data;
-          return Column(
+          return ListView(
             children: <Widget>[
               _createStatsInfo('Casos', globalStats.cases),
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               _createStatsInfo('Muertes', globalStats.deaths),
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               _createStatsInfo('Recuperados', globalStats.recovered),
+              SizedBox(height: 10.0),
+              _createNativeAd(),
             ],
           );
         } else {
@@ -83,7 +94,7 @@ class _GlobalPageState extends State<GlobalPage> {
 
   Widget _createStatsInfo(String label, int total) {
     return Container(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
@@ -125,6 +136,26 @@ class _GlobalPageState extends State<GlobalPage> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _createNativeAd() {
+    return Container(
+      height: 400.0,
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: NativeAdmob(
+        error: Text('Error al cargar el anuncio'),
+        adUnitID: _adUnitID,
+        controller: _controller,
+        options: NativeAdmobOptions(
+          showMediaContent: true,
+          ratingColor: Colors.red,
+        ),
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:covid_19_stats/pages/calculator_page.dart';
 import 'package:covid_19_stats/pages/country_page.dart';
 import 'package:covid_19_stats/pages/global_page.dart';
 import 'package:covid_19_stats/pages/about_page.dart';
@@ -15,7 +14,6 @@ class _BottomBarControllerState extends State<BottomBarController> {
 
   final List<Widget> _pages = [
     GlobalPage(),
-    // CalculatorPage(),
     CountryPage(),
     AboutPage(),
   ];

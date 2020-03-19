@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_admob/flutter_native_admob.dart';
+import 'package:flutter_native_admob/native_admob_controller.dart';
+import 'package:flutter_native_admob/native_admob_options.dart';
 
 import 'package:covid_19_stats/providers/stats_provider.dart';
 import 'package:covid_19_stats/widgets/country_card_widget.dart';
@@ -11,6 +14,11 @@ class CountryPage extends StatefulWidget {
 
 class _CountryPageState extends State<CountryPage> {
   final statsProvider = new StatsProvider();
+  final _controller = NativeAdmobController();
+  // Test ID
+  // static const _adUnitID = "ca-app-pub-3940256099942544/8135179316";
+  // Native Advanced ID
+  static const _adUnitID = "ca-app-pub-1500612778036594/7061549173";
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +114,34 @@ class _CountryPageState extends State<CountryPage> {
     return ListView.builder(
       itemCount: perCountryStats.length,
       itemBuilder: (BuildContext context, int index) {
-        return CountryCard(countryStat: perCountryStats[index]);
+        if ((index + 1) % 4 == 0) {
+          index--;
+          return _createNativeAd();
+        } else {
+          return CountryCard(countryStat: perCountryStats[index]);
+        }
       },
+    );
+  }
+
+  Widget _createNativeAd() {
+    return Container(
+      height: 100.0,
+      padding: EdgeInsets.all(20.0),
+      margin: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 5.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: NativeAdmob(
+        error: Text('Error al cargar el anuncio'),
+        adUnitID: _adUnitID,
+        controller: _controller,
+        options: NativeAdmobOptions(
+          showMediaContent: false,
+          ratingColor: Colors.red,
+        ),
+      ),
     );
   }
 }
