@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:flutter_native_admob/flutter_native_admob.dart';
 import 'package:flutter_native_admob/native_admob_controller.dart';
 import 'package:flutter_native_admob/native_admob_options.dart';
@@ -15,10 +17,51 @@ class CountryPage extends StatefulWidget {
 class _CountryPageState extends State<CountryPage> {
   final statsProvider = new StatsProvider();
   final _controller = NativeAdmobController();
+
+  double _height = 0;
+  StreamSubscription _subscription;
   // Test ID
   // static const _adUnitID = "ca-app-pub-3940256099942544/8135179316";
   // Native Advanced ID
   static const _adUnitID = "ca-app-pub-1500612778036594/7061549173";
+
+  @override
+  void initState() {
+    _subscription = _controller.stateChanged.listen(_onStateChanged);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onStateChanged(AdLoadState state) {
+    switch (state) {
+      case AdLoadState.loading:
+        setState(() {
+          _height = 0.0;
+        });
+        break;
+
+      case AdLoadState.loadCompleted:
+        setState(() {
+          _height = 100.0;
+        });
+        break;
+
+      case AdLoadState.loadError:
+        setState(() {
+          _height = 0.0;
+        });
+        break;
+
+      default:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +158,12 @@ class _CountryPageState extends State<CountryPage> {
       itemCount: perCountryStats.length,
       itemBuilder: (BuildContext context, int index) {
         if ((index + 1) % 4 == 0) {
-          index--;
-          return _createNativeAd();
+          return Column(
+            children: <Widget>[
+              _createNativeAd(),
+              CountryCard(countryStat: perCountryStats[index]),
+            ],
+          );
         } else {
           return CountryCard(countryStat: perCountryStats[index]);
         }
@@ -126,9 +173,9 @@ class _CountryPageState extends State<CountryPage> {
 
   Widget _createNativeAd() {
     return Container(
-      height: 100.0,
+      height: _height,
       padding: EdgeInsets.all(20.0),
-      margin: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 5.0),
+      margin: EdgeInsets.symmetric(vertical: (_height / 20)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
@@ -139,7 +186,7 @@ class _CountryPageState extends State<CountryPage> {
         controller: _controller,
         options: NativeAdmobOptions(
           showMediaContent: false,
-          ratingColor: Colors.red,
+          ratingColor: Colors.amberAccent,
         ),
       ),
     );

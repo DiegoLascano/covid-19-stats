@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'dart:async';
 import 'package:flutter_native_admob/flutter_native_admob.dart';
 import 'package:flutter_native_admob/native_admob_controller.dart';
 import 'package:flutter_native_admob/native_admob_options.dart';
@@ -13,10 +15,45 @@ class GlobalPage extends StatefulWidget {
 class _GlobalPageState extends State<GlobalPage> {
   final statsProvider = new StatsProvider();
   final _controller = NativeAdmobController();
+
+  double _height = 0;
+  StreamSubscription _subscription;
   // Test ID
   // static const _adUnitID = "ca-app-pub-3940256099942544/8135179316";
   // Native 2 Id
   static const _adUnitID = "ca-app-pub-1500612778036594/5687730085";
+
+  @override
+  void initState() {
+    _subscription = _controller.stateChanged.listen(_onStateChanged);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onStateChanged(AdLoadState state) {
+    switch (state) {
+      case AdLoadState.loading:
+        setState(() {
+          _height = 0.0;
+        });
+        break;
+
+      case AdLoadState.loadCompleted:
+        setState(() {
+          _height = 330.0;
+        });
+        break;
+
+      default:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +110,9 @@ class _GlobalPageState extends State<GlobalPage> {
           return ListView(
             children: <Widget>[
               _createStatsInfo('Casos', globalStats.cases),
-              SizedBox(height: 10.0),
-              _createStatsInfo('Muertes', globalStats.deaths),
-              SizedBox(height: 10.0),
-              _createStatsInfo('Recuperados', globalStats.recovered),
-              SizedBox(height: 10.0),
               _createNativeAd(),
+              _createStatsInfo('Muertes', globalStats.deaths),
+              _createStatsInfo('Recuperados', globalStats.recovered),
             ],
           );
         } else {
@@ -95,6 +129,7 @@ class _GlobalPageState extends State<GlobalPage> {
   Widget _createStatsInfo(String label, int total) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      margin: EdgeInsets.symmetric(vertical: 5.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
@@ -142,8 +177,9 @@ class _GlobalPageState extends State<GlobalPage> {
 
   Widget _createNativeAd() {
     return Container(
-      height: 400.0,
+      height: _height,
       padding: EdgeInsets.all(20.0),
+      margin: EdgeInsets.symmetric(vertical: (_height / 66)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
@@ -154,7 +190,7 @@ class _GlobalPageState extends State<GlobalPage> {
         controller: _controller,
         options: NativeAdmobOptions(
           showMediaContent: true,
-          ratingColor: Colors.red,
+          ratingColor: Colors.amberAccent,
         ),
       ),
     );
