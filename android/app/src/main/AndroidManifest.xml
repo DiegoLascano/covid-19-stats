@@ -7,8 +7,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="covid_19_stats"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Covid-19 Estadisticas"
+        android:icon="@mipmap/launcher_icon">
         
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
