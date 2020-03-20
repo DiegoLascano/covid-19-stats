@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
 
   void _startTimer() {
     _interstitialAd..load();
-    final Duration duration = new Duration(seconds: 30);
+    final Duration duration = new Duration(seconds: 45);
     new Timer(duration, () {
       _interstitialAd?.show();
     });

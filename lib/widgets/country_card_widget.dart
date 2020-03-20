@@ -12,7 +12,6 @@ class CountryCard extends StatelessWidget {
     return GestureDetector(
       child: Column(
         children: <Widget>[
-          SizedBox(height: 10.0),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
             margin: EdgeInsets.symmetric(vertical: 5.0),
