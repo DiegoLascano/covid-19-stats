@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
+
 import 'package:covid_19_stats/models/country_model.dart';
 
 class CountryCard extends StatelessWidget {
   final Country countryStat;
 
   CountryCard({@required this.countryStat});
+
+  final NumberFormat _formatter = new NumberFormat("###,###");
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class CountryCard extends StatelessWidget {
                       textBaseline: TextBaseline.alphabetic,
                       children: <Widget>[
                         Text(
-                          countryStat.cases.toString(),
+                          _formatNumber(countryStat.cases),
                           style: TextStyle(
                             fontSize: 25.0,
                             fontWeight: FontWeight.bold,
@@ -66,7 +70,7 @@ class CountryCard extends StatelessWidget {
                       textBaseline: TextBaseline.alphabetic,
                       children: <Widget>[
                         Text(
-                          countryStat.deaths.toString(),
+                          _formatNumber(countryStat.deaths),
                           style: TextStyle(
                             fontSize: 25.0,
                             fontWeight: FontWeight.bold,
@@ -93,5 +97,10 @@ class CountryCard extends StatelessWidget {
         Navigator.pushNamed(context, 'country_detail', arguments: countryStat);
       },
     );
+  }
+
+  String _formatNumber(int number) {
+    String _formattedNumber = _formatter.format(number);
+    return _formattedNumber.replaceAll(RegExp(','), '.');
   }
 }

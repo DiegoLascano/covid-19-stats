@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/gestures.dart';
 // import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class AboutPage extends StatelessWidget {
   @override

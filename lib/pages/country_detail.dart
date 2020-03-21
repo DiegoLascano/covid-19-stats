@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:covid_19_stats/models/country_model.dart';
 
 class CountryDetail extends StatelessWidget {
+  final NumberFormat _formatter = new NumberFormat("###,###");
+
   @override
   Widget build(BuildContext context) {
     final Country countryStats = ModalRoute.of(context).settings.arguments;
@@ -111,7 +114,7 @@ class CountryDetail extends StatelessWidget {
                 textBaseline: TextBaseline.alphabetic,
                 children: <Widget>[
                   Text(
-                    total.toString(),
+                    _formatNumber(total),
                     style: TextStyle(
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold,
@@ -142,7 +145,7 @@ class CountryDetail extends StatelessWidget {
         textBaseline: TextBaseline.alphabetic,
         children: <Widget>[
           Text(
-            today.toString(),
+            _formatNumber(today),
             style: TextStyle(
               fontSize: 25.0,
               fontWeight: FontWeight.bold,
@@ -161,5 +164,10 @@ class CountryDetail extends StatelessWidget {
     } else {
       return Container();
     }
+  }
+
+  String _formatNumber(int number) {
+    String _formattedNumber = _formatter.format(number);
+    return _formattedNumber.replaceAll(RegExp(','), '.');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:flutter_native_admob/flutter_native_admob.dart';
 import 'package:flutter_native_admob/native_admob_controller.dart';
@@ -15,6 +16,8 @@ class GlobalPage extends StatefulWidget {
 class _GlobalPageState extends State<GlobalPage> {
   final statsProvider = new StatsProvider();
   final _controller = NativeAdmobController();
+
+  final NumberFormat _formatter = new NumberFormat("###,###");
 
   double _height = 0;
   StreamSubscription _subscription;
@@ -154,7 +157,7 @@ class _GlobalPageState extends State<GlobalPage> {
             textBaseline: TextBaseline.alphabetic,
             children: <Widget>[
               Text(
-                total.toString(),
+                _formatNumber(total),
                 style: TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
@@ -194,5 +197,10 @@ class _GlobalPageState extends State<GlobalPage> {
         ),
       ),
     );
+  }
+
+  String _formatNumber(int number) {
+    String _formattedNumber = _formatter.format(number);
+    return _formattedNumber.replaceAll(RegExp(','), '.');
   }
 }
