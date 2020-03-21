@@ -107,18 +107,23 @@ class _CountryPageState extends State<CountryPage> {
                     ),
                   ],
                 ),
-                IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    size: 30.0,
-                    color: Colors.grey[800],
+                Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(100.0)),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.search,
+                      size: 30.0,
+                      color: Colors.grey[200],
+                    ),
+                    onPressed: () {
+                      showSearch(
+                        context: context,
+                        delegate: CountrySearch(),
+                      );
+                    },
                   ),
-                  onPressed: () {
-                    showSearch(
-                      context: context,
-                      delegate: CountrySearch(),
-                    );
-                  },
                 )
               ],
             ),
